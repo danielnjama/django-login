@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .username {
+        padding: 10px;
+        font-weight: bold;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 10px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+
+      .login-button {
+        background-color: #4caf50;
+      }
+
+      .register-button {
+        background-color: #008cba;
+      }
+
+      .info-link {
+        color: #008cba;
+      }
+
+      .login-form {
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      .login-form h2 {
+        margin-bottom: 10px;
+      }
+
+      .login-form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .login-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .login-form button {
+        width: 100%;
+      }
+
+      .register-form {
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      .register-form h2 {
+        margin-bottom: 10px;
+      }
+
+      .register-form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .register-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .register-form button {
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .navbar a {
+          margin: 10px 0;
+        }
+
+        .button-container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-brand">My Website</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#">About</a>
+        <a href='{% url "contact" %}'>Contact</a>
+        <a class="info-link" href="#">Info</a>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="user-greeting">
+        Welcome, <span id="username">{{user.first_name}}</span>
+      </div>
+      {% else %}
+      <div class="user-greeting">
+        Welcome, <span id="username">User</span>
+      </div>
+      {% endif %}
+      <div class="button-container">
+
+        {% if user.is_authenticated %}
+      <button class="button register-button"><a href="{% url "logout" %}">Logout</a></button>
+      {% else %}
+       <button class="button login-button"> <a href="{% url "login" %}">Login</a></button>
+        <button class="button register-button"><a href="{% url "register" %}">Register</a></button>
+      {% endif %}
+
+
+
+       
+        
+      </div>
+      
+    </div>
+    {% block content %}
+    <div class="content">
+    
+      <p>Your website content goes here.</p>
+
+        {% if user.is_authenticated %}
+      <textarea> </textarea>
+      <button> Comment </button>
+      {% else %}
+      <p> Please login first </p>
+      {% endif %}
+
+     
+    </div>
+    {% endblock content %}
+  </body>
+</html>
